@@ -36,6 +36,7 @@ public class KikoAdventure extends JComponent implements MouseListener {
 	public void paint(Graphics g) {
 		if (screen == 999) {
 			StartingScreen(g);
+
 		} else if (screen == 666) {
 			Lose(g);
 		} else if (screen == 0) {
@@ -58,9 +59,9 @@ public class KikoAdventure extends JComponent implements MouseListener {
 		} else if (screen == 111) {
 			FightW(g);
 		} else if (screen == 112) {
-
+			Fail2(g);
 		} else if (screen == 113) {
-
+			Lose(g);
 			//
 		} else if (screen == 1111) {
 			FightW1(g);
@@ -71,15 +72,28 @@ public class KikoAdventure extends JComponent implements MouseListener {
 			//
 		} else if (screen == 121) {
 			NightWakeW(g);
+		} else if (screen == 121) {
+			Fail(g);
+		} else if (screen == 1211) {
+			FailNight(g);
 		} else if (screen == 122) {
 
 		} else if (screen == 123) {
 
 			//
+		} else if (screen == 21) {
+			Fail(g);
+		} else if (screen == 22) {
+			Fail2(g);
+		} else if (screen == 23) {
+			Fail(g);
+			//
 		} else if (screen == 31) {
 			NightWake(g);
 			//
 		} else if (screen == 311) {
+			FailNight(g);
+
 			///
 		} else if (screen == 3111) {
 			// vv WINN!!!
@@ -101,7 +115,28 @@ public class KikoAdventure extends JComponent implements MouseListener {
 	public void Lose(Graphics g) {
 		g.setFont(new Font("30B", Font.BOLD, 30));
 		g.setColor(Color.RED);
-		g.drawString("YOU HAVE NOT FULFILLED YOUR DESTINY", 10, 50);
+		g.drawString("YOU HAVE NOT PASSED AP COMP. SCI A", 10, 50);
+	}
+
+	public void Fail(Graphics g) {
+		g.setFont(new Font("30B", Font.BOLD, 30));
+		g.setColor(Color.RED);
+		g.drawString("You have been caught by Danker and are Un-Prepared for the AP Exam handed to you.", 10, 50);
+	}
+
+	public void FailNight(Graphics g) {
+		g.setFont(new Font("30B", Font.BOLD, 30));
+		g.setColor(Color.RED);
+		g.drawString("You have been caught by Danker and are handed the AP Exam packet!", 10, 50);
+		g.drawString("You feel super ready but its too dark to see anything and scored [0]", 10, 80);
+	}
+
+	public void Fail2(Graphics g) {
+		g.setFont(new Font("30B", Font.BOLD, 30));
+		g.setColor(Color.RED);
+		g.drawString("The door has disappeared and in its place is a desk with a packet writtin \"AP EXAM\" on top.",
+				10, 50);
+		g.drawString("You are forced take it and Fail.", 10, 80);
 	}
 
 	public void Win(Graphics g) {
@@ -165,10 +200,9 @@ public class KikoAdventure extends JComponent implements MouseListener {
 
 		g.setFont(new Font("27B", Font.BOLD, 27));
 		g.setColor(Color.RED);
-		g.drawString("Here comes the Danker!", 10, 50);
+		g.drawString("Here comes the Danker!  He hands you a packet writting [AP EXAM] on top!", 10, 50);
 		g.setFont(new Font("24", Font.CENTER_BASELINE, 24));
 		g.setColor(Color.GREEN);
-		int Dmg = randDmg(3);
 		HP = HP - 0;
 		g.drawString("HP: " + HP, 10, 80);
 
@@ -182,12 +216,16 @@ public class KikoAdventure extends JComponent implements MouseListener {
 
 		g.setFont(new Font("27B", Font.BOLD, 27));
 		g.setColor(Color.RED);
-		g.drawString("Here comes the Danker!", 10, 50);
+		g.drawString("You write in answers!", 10, 50);
 		g.setFont(new Font("24", Font.CENTER_BASELINE, 24));
 		g.setColor(Color.GREEN);
 		int Dmg = randDmg(3);
 		HP = HP - Dmg;
-		g.drawString("HP: " + HP, 10, 80);// 1 - 1 - 1 //
+	if (HP > 0) {
+		g.drawString("HP: " + HP, 10, 80);
+	} else if (HP <= 0) {
+		g.drawString("HP: > RIP < " , 10, 80);
+	}
 		g.drawString("[ Use > Black Magic Marker < ]", 10, 130);
 		g.drawString("[ Give Up ]", 10, 170);
 		g.drawString("[ Run! ]", 10, 210);
@@ -266,10 +304,13 @@ public class KikoAdventure extends JComponent implements MouseListener {
 		System.out.println("screen: " + screen);
 		if (e.getX() > 800 && e.getY() > 800) {
 			screen = 999;
+			HP = 100;
 		} else if (e.getX() > 9 && e.getX() < 350 && e.getY() > 109 && e.getY() < 126 && (screen == 9999)) {
 			screen = 999;
+			HP = 100;
 		} else if (e.getX() > 9 && e.getX() < 350 && e.getY() > 109 && e.getY() < 126 && (screen == 666)) {
 			screen = 999;
+			HP = 100;
 		} else if (e.getX() > 9 && e.getX() < 350 && e.getY() > 109 && e.getY() < 126 && (screen == 999)) {
 			screen = 0;
 		} else if (e.getX() > 9 && e.getX() < 350 && e.getY() > 109 && e.getY() < 126 && (HP <= 0)) {
@@ -294,6 +335,8 @@ public class KikoAdventure extends JComponent implements MouseListener {
 			//// 1 ////
 		} else if (e.getX() > 9 && e.getX() < 350 && e.getY() > 109 && e.getY() < 126 && (screen == 12)) {
 			screen = 121;
+		} else if (e.getX() > 9 && e.getX() < 350 && e.getY() > 109 && e.getY() < 126 && (screen == 121)) {
+			screen = 1211;
 			/// 1 - 2 ///
 
 		} else if (e.getX() > 9 && e.getX() < 350 && e.getY() > 109 && e.getY() < 126 && (screen == 11)) {
@@ -332,7 +375,7 @@ public class KikoAdventure extends JComponent implements MouseListener {
 		} else if (e.getX() > 9 && e.getX() < 350 && e.getY() > 189 && e.getY() < 226 && (screen == 1113)) {
 			screen = 666;
 			///
-		
+
 			/// 2 - 1 ///
 			//// ////
 		} else if (e.getX() > 9 && e.getX() < 350 && e.getY() > 109 && e.getY() < 126 && (screen == 3)) {
@@ -343,7 +386,7 @@ public class KikoAdventure extends JComponent implements MouseListener {
 			screen = 33;
 			//// 3 ////
 		} else if (e.getX() > 9 && e.getX() < 350 && e.getY() > 109 && e.getY() < 126 && (screen == 31)) {
-			screen = 311;	
+			screen = 311;
 		} else if (e.getX() > 9 && e.getX() < 350 && e.getY() > 109 && e.getY() < 126 && (screen == 311)) {
 			screen = 666;
 
